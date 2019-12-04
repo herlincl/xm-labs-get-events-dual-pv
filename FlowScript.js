@@ -46,6 +46,7 @@ if (!status && !priority && !propertyName) {
       ',' + encodeURIComponent(property2Name) +
       '&propertyValue=' + (propertyValue ? encodeURIComponent(propertyValue) : '') +
       ',' + (property2Value ? encodeURIComponent(property2Value) : '') +
+      '&propertyValueOperator=' + (isPropValExactMatch ? 'EQUALS' : 'CONTAINS') +
       '&propertyValueOperator=' + (isPropValExactMatch ? 'EQUALS' : 'CONTAINS');
   }
 
