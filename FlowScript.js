@@ -1,4 +1,3 @@
-
 var status = input['Status'];
 var priority = input['Priority'];
 var propertyName = input['Property Name'];
@@ -24,6 +23,7 @@ var LABEL_EVENT_IDS = 'Event IDs';
 var LABEL_NUMBER_OF_EVENT_IDS_RETURNED = 'Number of Event IDs Returned';
 var LABEL_TOTAL_EVENT_COUNT = 'Total Event Count';
 
+
 if (!status && !priority && !propertyName) {
   throw new Error('At least one of the following must be set: Status, Priority, or Property Name.');
 } else {
@@ -42,18 +42,20 @@ if (!status && !priority && !propertyName) {
     queryString += '&priority=' + priority.replace(/\s/g, '').toUpperCase();
   }
   if (propertyName) {
-    queryString += '&propertyName=' + encodeURIComponent(propertyName) +
-      ',' + encodeURIComponent(property2Name) +
+    queryString += '&propertyName=' + encodeURIComponent(propertyName + '#en') +
+      ',' + encodeURIComponent(property2Name + '#en') +
       '&propertyValue=' + (propertyValue ? encodeURIComponent(propertyValue) : '') +
       ',' + (property2Value ? encodeURIComponent(property2Value) : '') +
       '&propertyValueOperator=' + (isPropValExactMatch ? 'EQUALS' : 'CONTAINS') +
-      '&propertyValueOperator=' + (isPropValExactMatch ? 'EQUALS' : 'CONTAINS');
+      '&propertyValueOperator=' + (isPropValExactMatch ? 'EQUALS' : 'CONTAINS')
+      + '&embed=properties';
   }
 
   var getEventsRequest = http.request({
     endpoint: 'xMatters',
     method: 'GET',
-    path: '/api/xm/1/events' + queryString
+    path: '/api/xm/1/events' + queryString,
+    autoEncodeURI: 'false'
   });
 
   var response = getEventsRequest.write();
@@ -99,5 +101,3 @@ if (!status && !priority && !propertyName) {
     );
   }
 }
-
-  
